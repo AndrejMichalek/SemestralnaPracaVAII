@@ -6,7 +6,8 @@ body {
     background-color:aliceblue;
 }
 .logo {
-    width: 40px;
+    width: 30px;
+    height:24px
 }
 
 /*.navbar{
@@ -40,4 +41,9 @@ body {
         width: 15%;
 
     }
+}
+
+.textkontaktov {
+
+    text-align: center;
 }
