@@ -1,0 +1,49 @@
+.modry {
+    background-color: steelblue;
+    color: white;
+}
+body {
+    background-color:aliceblue;
+}
+.logo {
+    width: 30px;
+    height:24px
+}
+
+/*.navbar{
+    background-color: steelblue;
+    color: black;
+}*/
+.display-2 {
+    color:white;
+    text-align: center;
+}
+
+.footer{
+    background-color: darkslateblue;
+    color: white;
+    text-align: center;
+}
+.kontakty:hover{
+    color: darkgrey;
+}
+.obsahotazky {
+    text-align: justify;
+}
+.profilovka {
+    width: 50%;
+    align-self: center;
+}
+
+
+@media only screen and (max-width: 700px) {
+    .profilovka {
+        width: 15%;
+
+    }
+}
+
+.textkontaktov {
+
+    text-align: center;
+}
