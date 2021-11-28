@@ -9,9 +9,14 @@ use App\Models\Prispevok;
 
 class Forum
 {
-    public static function dajAutoraPrispevku($nickname) {
-        $pouzivatel = Pouzivatel::getOne($nickname);
-        return $pouzivatel;
+    public static function dajAutoraPrispevku($username) {
+        $pouzivatel = Pouzivatel::getAll("username = ?", [$username]);
+        return $pouzivatel[0];
+    }
+
+    public static function dajPocetPrispevkov($username) {
+        $prispevky = Prispevok::getAll("username = ?", [$username]);
+        return sizeof($prispevky);
     }
 
     public static function pridajPrispevok(

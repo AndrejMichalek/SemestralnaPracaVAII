@@ -33,7 +33,7 @@ if($problemZmenaKomentara != "") {
             <img class="card-img-top profilovka mt-2 " src="public/obrazky/profilovka.jpg" alt="Card image">
             <div class="card-body ">
                 <h4 class="card-title"><?=$autorPrispevku->getMeno()." ".$autorPrispevku->getPriezvisko()?></h4>
-                <p>Príspevkov: 4</p>
+                <p>Príspevkov: <?=\App\Forum::dajPocetPrispevkov($autorPrispevku->getUsername())?></p>
 
 
             </div>
@@ -64,7 +64,7 @@ for($i= 0; $i < sizeof($komentare); $i++) {
                 <img class="card-img-top profilovka mt-2" src="public/obrazky/profilovka.jpg" alt="Card image">
                 <div class="card-body ">
                     <h4 class="card-title"><?=$pouzivatelia[$i]->getMeno()." ".$pouzivatelia[$i]->getPriezvisko()?></h4>
-                    <p>Príspevkov: 10</p>
+                    <p>Príspevkov: <?=\App\Forum::dajPocetPrispevkov($komentare[$i]->getUsername())?></p>
 
 
                 </div>

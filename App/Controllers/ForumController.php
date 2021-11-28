@@ -72,6 +72,7 @@ class ForumController extends AControllerRedirect
         $prispevok = Forum::dajPrispevok($prispevokID);
         $autorPrispevku = Forum::dajAutoraPrispevku($prispevok[0]->getUsername());
 
+
         $komentare = Forum::dajKomentareKPrispevku($prispevokID);
         $pouzivatelia = Forum::dajUzivatelovKuKomentarom($komentare);
 
