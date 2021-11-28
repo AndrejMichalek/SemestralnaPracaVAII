@@ -70,6 +70,8 @@ class ForumController extends AControllerRedirect
         $prispevokID = $this->request()->getValue("prispevokid");
 
         $prispevok = Forum::dajPrispevok($prispevokID);
+        $autorPrispevku = Forum::dajAutoraPrispevku($prispevok[0]->getUsername());
+
         $komentare = Forum::dajKomentareKPrispevku($prispevokID);
         $pouzivatelia = Forum::dajUzivatelovKuKomentarom($komentare);
 
@@ -82,8 +84,10 @@ class ForumController extends AControllerRedirect
             return $this->html(
                 [
                     "prispevok" => $prispevok,
+                    "autorPrispevku" => $autorPrispevku,
                     "komentare" => $komentare,
                     "pouzivatelia" => $pouzivatelia,
+
 
                     "komentarUpravID" => $komentarUpravID,
                     "problemZmenaKomentara" => $problemZmenaKomentara

@@ -3,11 +3,13 @@
 </div>
 <?php
 $prispevok = $data["prispevok"][0];
+$autorPrispevku = $data["autorPrispevku"];
 $komentare = $data["komentare"];
 $pouzivatelia = $data['pouzivatelia'];
 
 $komentarUpravID = $data["komentarUpravID"];
 $problemZmenaKomentara = $data["problemZmenaKomentara"];
+
 
 
 ?>
@@ -30,7 +32,7 @@ if($problemZmenaKomentara != "") {
         <div class="card col-sm-3" >
             <img class="card-img-top profilovka mt-2 " src="public/obrazky/profilovka.jpg" alt="Card image">
             <div class="card-body ">
-                <h4 class="card-title">Jožko Mrkvička</h4>
+                <h4 class="card-title"><?=$autorPrispevku->getMeno()." ".$autorPrispevku->getPriezvisko()?></h4>
                 <p>Príspevkov: 4</p>
 
 
