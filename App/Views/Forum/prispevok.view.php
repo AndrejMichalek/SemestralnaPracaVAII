@@ -71,50 +71,52 @@ for($i= 0; $i < sizeof($komentare); $i++) {
             </div>
             <div class="card col-sm-9" >
 
-                <div class="card-body">
+                <div class="card-body" >
 
                     <h4 class="card-title">Re: <?=$prispevok->getNazov()?></h4>
                     <p><?= $prispevok->getDatum() ?><p>
 
-                    <?php if($komentarUpravID == $komentare[$i]->getId()) { ?>
+                    <div id="komentar_uprav,<?=$komentare[$i]->getId()?>" style="display: none">
+                        <?php if(\App\Prihlasenie::dajUsername() == $pouzivatelia[$i]->getUsername()) { ?>
+                        <form class="mt-2" method="post" action="?c=forum&a=ulozZmenyVTomtoKomente">
+                            <h4 class="mb-3 mt-3">Úprava:</h4>
+                            <textarea class="form-control" rows="5" name="novyObsah"><?= $komentare[$i]->getObsah()?></textarea>
 
-                    <form class="mt-5 mb-5" method="post" action="?c=forum&a=ulozZmenyVTomtoKomente">
-                        <h4 class="mb-3 mt-3">Úprava:</h4>
-                        <textarea class="form-control" rows="5" name="novyObsah"><?= $komentare[$i]->getObsah()?></textarea>
+                            <input type="hidden" name="komentarID" value="<?=$komentare[$i]->getId()?>">
+                            <input type="hidden" name="prispevokID" value="<?=$prispevok->getId()?>">
 
-                        <input type="hidden" name="komentarID" value="<?=$komentare[$i]->getId()?>">
-                        <input type="hidden" name="prispevokID" value="<?=$prispevok->getId()?>">
+                            <button type="submit" class="btn btn-primary mt-3 text-center" >Uložiť</button>
 
-                        <button type="submit" class="btn btn-primary mt-3 text-center" >Uložiť</button>
-
-
-                    </form>
-
-
-
-
-                    <?php } else { ?>
-                    <p class="obsahotazky">
-                        <?=
-                        $komentare[$i]->getObsah();
-                        ?>
-                    </p>
-                    <?php if(\App\Prihlasenie::dajUsername() == $pouzivatelia[$i]->getUsername()) { ?>
-                        <form method="post" action="?c=forum&a=zmazKomentar">
-                        <input type="hidden" name="idZmaz" value="<?=$komentare[$i]->getId()?>">
-                        <button type="submit" class="btn btn-danger">Vymazať</button></h4>
                         </form>
 
-                        <form method="post" action="?c=forum&a=upravKomentar">
-                            <input type="hidden" name="komentarUpravID" value="<?=$komentare[$i]->getId()?>">
-                            <input type="hidden" name="komentarObsah" value="<?=$komentare[$i]->getObsah()?>">
+                            <button onclick="zursUpravovanie(<?=$komentare[$i]->getId()?>)" class="mt-2 btn btn-secondary">Zrušiť úpravu</button>
+
+                        <?php }  ?>
+
+                    </div>
 
 
-                            <input type="hidden" name="idPrispevok" value="<?=$prispevok->getId()?>">
-                            <button type="submit" class="mt-2 btn btn-secondary">Upraviť </button></h4>
-                        </form>
-                    <?php } } ?>
+                    <div id="komentar_normal,<?=$komentare[$i]->getId()?>">
 
+
+                        <p class="obsahotazky novy_riadok">
+                            <?=
+                            $komentare[$i]->getObsah();
+                            ?>
+                        </p>
+                        <?php if(\App\Prihlasenie::dajUsername() == $pouzivatelia[$i]->getUsername()) { ?>
+                            <form class="zmazKomentar" method="post" action="?c=forum&a=zmazKomentar"  >
+                            <input type="hidden" name="idZmaz" value="<?=$komentare[$i]->getId()?>">
+                            <button type="submit" class="btn btn-danger">Vymazať</button>
+                            </form>
+
+
+                                <button onclick="upravKomentar(<?=$komentare[$i]->getId()?>)" class="mt-2 btn btn-secondary">Upraviť </button>
+
+                        <?php }  ?>
+
+
+                    </div>
                 </div>
             </div>
         </div>
@@ -135,9 +137,9 @@ if(\App\Prihlasenie::jePrihlaseny()) {
             <div class="card" >
 
 
-                <form class="mt-5 mb-5" method="post" action="?c=forum&a=pridajKomentar">
+                <form class="mt-5 mb-5 pridaj_komentar" method="post" action="?c=forum&a=pridajKomentar" >
                     <h4 class="mb-3 mt-3">Nový komentár:</h4>
-                    <textarea class="form-control" rows="5" name="obsah"></textarea>
+                    <textarea class="form-control" rows="5" name="obsah" id="pridaj_komentar_area" required></textarea>
                     <input type="hidden" name="idPrispevku" value="<?=$prispevok->getId()?>">
 
                     <button type="submit" class="btn btn-primary mt-3 text-center" >Pridať komentár</button>
@@ -168,7 +170,7 @@ if(\App\Prihlasenie::jePrihlaseny()) {
 
 
 <!--
-<?php/**
+<?php /**
 
 <div class="container mb-3">
     <div class="row">

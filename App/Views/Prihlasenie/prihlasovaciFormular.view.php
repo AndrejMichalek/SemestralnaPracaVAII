@@ -14,12 +14,12 @@
 <form class="mt-4 mb-5" method="post" action="?c=prihlasenie&a=prihlasMa">
     <div class="form-group">
         <label for="exampleInputEmail1">Používateľské meno:</label>
-        <input class="form-control" name="username" id="exampleInputEmail1" aria-describedby="emailHelp">
+        <input class="form-control" name="username" id="exampleInputEmail1" aria-describedby="emailHelp" required>
         <small id="emailHelp"  class="form-text text-muted">Užívateľské meno, ktoré ste použili pri registrácii.</small>
     </div>
     <div class="form-group">
         <label for="exampleInputPassword1">Heslo</label>
-        <input type="password" name="heslo" class="form-control" id="exampleInputPassword1">
+        <input type="password" name="heslo" class="form-control" id="exampleInputPassword1" required>
     </div>
     <div class="text-center">
         <button type="submit" class="btn btn-primary mt-3 text-center" >Prihlásiť sa</button>

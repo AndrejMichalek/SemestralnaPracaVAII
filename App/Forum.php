@@ -101,7 +101,14 @@ class Forum
             return "Komentár nemôže byť prázdny";
         } else {
             $koment = Komentar::getOne($komentarID);
-            $koment->setObsah("(Upravený) ".$obsah);
+            if($koment->getUsername() != Prihlasenie::dajUsername()) {
+                return "Nemôžete meniť komentáre, ktoré ste nenapísali!";
+            }
+            $uvodneSlovo = "[Upravený] ";
+            if(substr($obsah, 0,strlen($uvodneSlovo)) != $uvodneSlovo) {
+                $obsah=$uvodneSlovo.$obsah;
+            }
+            $koment->setObsah($obsah);
             $koment->save();
             return "";
         }

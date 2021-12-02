@@ -9,11 +9,11 @@
 
     <h4 class="mb-3 mt-3">Čoho sa týka Váš problém?</h4>
     <div class="form-group">
-        <input class="form-control" name="nazov">
+        <input class="form-control" name="nazov" required>
     </div>
 
     <h4 class="mb-3 mt-3">Obsah otázky:</h4>
-    <textarea class="form-control" rows="5" name="obsah"></textarea>
+    <textarea class="form-control" rows="5" name="obsah" required></textarea>
 
     <h4 class="mb-3 mt-3">Vyberte kategóriu, do ktorej spadá Vaša otázka</h4>
     <div class="form-check">

@@ -58,7 +58,7 @@ class ForumController extends AControllerRedirect
 
 
         if($problem == "") {
-            $this->redirect("home");
+            $this->redirect("forum", "index");
         } else {
             $this->redirect("forum", "pridatPrispevok", ["chyba" => $problem]);
         }
@@ -147,11 +147,13 @@ class ForumController extends AControllerRedirect
     }
 
     public function ulozZmenyVTomtoKomente() {
+
         $novyObsah = $this->request()->getValue("novyObsah");
         $komentarID = $this->request()->getValue("komentarID");
         $prispevokID = $this->request()->getValue("prispevokID");
 
         $problemZmenaKomentara = Forum::zmenKomentar($novyObsah, $komentarID);
+
 
 
         $this->redirect("forum", "prispevok", [

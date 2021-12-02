@@ -12,32 +12,32 @@
 
     <div class="form-group">
         <label>Používateľské meno:</label>
-        <input class="form-control" name="username">
+        <input class="form-control" name="username" required>
     </div>
 
     <div class="form-group">
         <label>Meno:</label>
-        <input class="form-control" name="meno">
+        <input class="form-control" name="meno" required>
     </div>
 
     <div class="form-group">
         <label>Priezvisko:</label>
-        <input class="form-control" name="priezvisko">
+        <input class="form-control" name="priezvisko" required>
     </div>
 
     <div class="form-group">
         <label>email:</label>
-        <input type="email" class="form-control" name="email">
+        <input type="email" class="form-control" name="email" required>
     </div>
 
     <div class="form-group">
         <label>Heslo</label>
-        <input type="password" name="heslo" class="form-control">
+        <input type="password" name="heslo" class="form-control" required>
     </div>
 
     <div class="form-group">
         <label>Kontrola hesla</label>
-        <input type="password" name="hesloKontrola" class="form-control">
+        <input type="password" name="hesloKontrola" class="form-control" required>
     </div>
 
 
