@@ -1,4 +1,4 @@
-<div class="container modry mt-5 pt-4">
+<div class="container modry my-4 pb-2">
     <h2 class="display-2">Kontakty</h2>
     <p class="textkontaktov">V prípade akýchkoľvek otázok alebo problémov nás neváhajte kontaktovať</p>
 </div>
