@@ -28,6 +28,8 @@ class Forum
             return "Všetky polia musia byť vyplnené";
         } else if($kategoria != "S" && $kategoria != "P" && $kategoria!="O") {
             return "Pri zadávaní kategórie došlo k chybe";
+        } else if(strlen($nazov) > 255) {
+            return "Názov môže mať maximálne 255 znakov";
         }
         $username = Prihlasenie::dajUsername();
 
@@ -90,6 +92,10 @@ class Forum
             $data = Connection::connect()->prepare("INSERT INTO komentar (prispevokID, username, obsah, datum) VALUES(?,?,?,?)");
             $data->execute([$prispevokID, Prihlasenie::dajUsername(), $obsah, date('Y-m-d H:i:s')]);
 
+            $prispevok = Prispevok::getOne($prispevokID);
+            $prispevok->zvysPocetKomentarov();
+            $prispevok->save();
+
             return "";
         } else {
             return "Musíte byť prihlásený.";
@@ -113,5 +119,23 @@ class Forum
             return "";
         }
     }
+
+    public static function zmazKomentar($komentarId) {
+
+
+        $komentar = Komentar::getAll("id = ?", [$komentarId]);
+        if(sizeof($komentar) == 1) {
+            $prispevokid = $komentar[0]->getPrispevokID();
+            $komentar[0]->delete();
+
+            $prispevok = Prispevok::getOne($prispevokid);
+            $prispevok->znizPocetKomentarov();
+            $prispevok->save();
+
+            return $prispevokid;
+        }
+        return "";
+    }
+
 
 }

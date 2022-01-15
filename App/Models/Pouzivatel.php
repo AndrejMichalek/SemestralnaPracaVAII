@@ -60,7 +60,7 @@ class Pouzivatel extends \App\Core\Model
      */
     public function setHeslo(string $heslo): void
     {
-        $this->heslo = md5($heslo);
+        $this->heslo = password_hash($heslo, PASSWORD_DEFAULT);
     }
 
     /**

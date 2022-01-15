@@ -11,42 +11,37 @@ class NavbarPrvky
     static $navRegistracia = "";
 
     static function setDomov() {
-        self::$navDomov= "active";
-        self::$navForum = "";
-        self::$navNavody = "";
-        self::$navPrihlasenie = "";
-        self::$navRegistracia= "";
+        self::vynuluj();
+        self::$navDomov="active";
     }
 
     static function setForum() {
-        self::$navDomov= "";
+        self::vynuluj();
         self::$navForum = "active";
-        self::$navNavody = "";
-        self::$navPrihlasenie = "";
-        self::$navRegistracia= "";
     }
 
     static function setNavody() {
-        self::$navDomov= "";
-        self::$navForum = "";
-        self::$navNavody = "active";
-        self::$navPrihlasenie = "";
-        self::$navRegistracia= "";
+        self::vynuluj();
+        self::$navNavody= "active";
     }
     static function setPrihlasenie() {
-        self::$navDomov= "";
-        self::$navForum = "";
-        self::$navNavody = "";
+        self::vynuluj();
         self::$navPrihlasenie = "active";
-        self::$navRegistracia= "";
     }
 
     static function setRegistracia() {
-        self::$navDomov= "";
+        self::vynuluj();
+        self::$navRegistracia= "active";
+    }
+
+
+    static function vynuluj() {
+        self::$navDomov = "";
         self::$navForum = "";
         self::$navNavody = "";
         self::$navPrihlasenie = "";
-        self::$navRegistracia= "active";
+        self::$navRegistracia = "";
     }
+
 
 }

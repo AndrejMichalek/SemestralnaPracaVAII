@@ -17,6 +17,10 @@ class ForumController extends AControllerRedirect
      */
     public function index()
     {
+
+
+
+
         NavbarPrvky::setForum();
 
         $prispevky = Prispevok::getAll();
@@ -117,16 +121,13 @@ class ForumController extends AControllerRedirect
         if(Prihlasenie::jePrihlaseny()) {
             $zmazTentoID = $this->request()->getValue("idZmaz");
 
-            $komentar = Komentar::getAll("id = ?", [$zmazTentoID]);
-            if(sizeof($komentar) == 1) {
-                $prispevokid = $komentar[0]->getPrispevokID();
-                $komentar[0]->delete();
-
+            $prispevokid = Forum::zmazKomentar($zmazTentoID);
+            if($prispevokid != "") {
                 $this->redirect("forum", "prispevok", ["prispevokid" => $prispevokid]);
-            }
-            else {
+            } else {
                 $this->redirect("home");
             }
+
         } else {
             $this->redirect("home");
         }

@@ -47,3 +47,10 @@ body {
 
     text-align: center;
 }
+
+.nadpisNavod {
+    background:steelblue;
+}
+.nadpisNavodText {
+    color:white;
+}

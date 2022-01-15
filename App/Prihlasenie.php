@@ -10,14 +10,16 @@ class Prihlasenie
 
     public static function prihlas($username, $heslo) : bool {
         $pouzivatel = Pouzivatel::getAll("username=?", [$username]);
+
+
         if(sizeof($pouzivatel) == 0) {
             return false;
         } else {
-            $hesloHash = md5($heslo);
+
 
             $hesloDatabaza = $pouzivatel[0]->getHeslo();
 
-            if($hesloHash == $hesloDatabaza) {
+            if(password_verify($heslo, $hesloDatabaza)) {
                 $_SESSION["username"] = $username;
 
                 return true;

@@ -35,11 +35,11 @@
                 <li class="nav-item">
                     <a class="nav-link <?php echo \App\NavbarPrvky::$navForum ?>" href="?c=forum">Fórum</a>
                 </li>
-                <?php if(false) { ?>
+
                 <li class="nav-item">
-                    <a class="nav-link <?php echo \App\NavbarPrvky::$navNavody ?>" href="navody.html">Návody</a>
+                    <a class="nav-link <?php echo \App\NavbarPrvky::$navNavody ?>" href="?c=navody">Návody</a>
                 </li>
-                <?php } ?>
+
                 <?php if(!\App\Prihlasenie::jePrihlaseny()) { ?>
                 <li class="nav-item">
                     <a class="nav-link <?php echo \App\NavbarPrvky::$navPrihlasenie ?>" href="?c=prihlasenie&a=prihlasovaciFormular">Prihlásenie</a>

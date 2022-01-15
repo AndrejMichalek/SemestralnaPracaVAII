@@ -144,4 +144,11 @@ class Prispevok extends \App\Core\Model
     {
         $this->id = $id;
     }
+
+    public function zvysPocetKomentarov() {
+        $this->pocetKomentarov+=1;
+    }
+    public function znizPocetKomentarov() {
+        $this->pocetKomentarov-=1;
+    }
 }

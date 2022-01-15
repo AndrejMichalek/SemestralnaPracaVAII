@@ -15,7 +15,7 @@ class PrihlasenieController extends AControllerRedirect
      */
     public function index()
     {
-        // TODO: Implement index() method.
+        // : Implement index() method.
     }
 
     public function prihlasovaciFormular() {
