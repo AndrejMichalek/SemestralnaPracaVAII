@@ -48,7 +48,7 @@
             <div class="card-body">
                 <h4 class="card-title">Smartphony</h4>
                 <p class="card-text">Otázky týkajúce sa inteligentných telefónov s Androidom a iPhonov</p>
-                <a href="?c=forum" class="btn btn-primary">Zobraziť príspevky</a>
+                <a href="?c=forum&kategoria=S" class="btn btn-primary">Zobraziť príspevky</a>
             </div>
         </div>
 
@@ -57,7 +57,7 @@
             <div class="card-body">
                 <h4 class="card-title">Počítače</h4>
                 <p class="card-text">Otázky ohľadom notebookov, desktopov a počítačových komponentov</p>
-                <a href="#" class="btn btn-primary">Zobraziť príspevky</a>
+                <a href="?c=forum&kategoria=P" class="btn btn-primary">Zobraziť príspevky</a>
             </div>
         </div>
 
@@ -66,7 +66,7 @@
             <div class="card-body">
                 <h4 class="card-title">Ostatné zariadenia</h4>
                 <p class="card-text">Otázky týkajúce sa televízorov, práčok, chladničiek iných zariadení</p>
-                <a href="#" class="btn btn-primary">Zobraziť príspevky</a>
+                <a href="?c=forum&kategoria=O" class="btn btn-primary">Zobraziť príspevky</a>
             </div>
         </div>
     </div>
