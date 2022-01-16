@@ -17,17 +17,7 @@ function zursUpravovanie(komentarID) {
 }
 
 window.onload = function() {
-    /*
-    zmazKomentar=document.getElementById('zmazKomentar');
-    if(zmazKomentar != null) {
-        zmazKomentar.onsubmit = function(e) {
 
-            e.preventDefault();
-            if(confirm("Naozaj chceš vymazať tento komentár??")) {
-                this.submit();
-            }
-        }
-    }*/
 
     let zmazFormulare = document.getElementsByClassName("zmazKomentar");
     if(zmazFormulare.length != null) {
@@ -41,20 +31,6 @@ window.onload = function() {
             }
         }
     }
-    /*
-    let pridaj_komentar_form = document.getElementsByClassName("pridaj_komentar");
-    if(pridaj_komentar_form != null) {
-        pridaj_komentar_form[0].onsubmit = function(e) {
-            e.preventDefault();
-            text_area = document.getElementById("pridaj_komentar_area");
-            text = text_area.value;
-            text = text.replace(/\n/g, "<br>");
-            text_area.value = text;
-
-            this.submit()
-        }
-    }
-    */
 
     let novy_riadok_elementy = document.getElementsByClassName("novy_riadok");
     if(novy_riadok_elementy != null) {
@@ -65,45 +41,43 @@ window.onload = function() {
         }
     }
 
-    /*
-    let pridaj_komentarFormulare = document.getElementsByClassName("pridaj_komentar");
-    if(pridaj_komentarFormulare != null) {
-        for(i = 0; i < pridaj_komentarFormulare.length; i++) {
-            pridaj_komentarFormulare[i].onsubmit = function(e) {
-                e.preventDefault();
-                text = area_vloz_komentar.value;
-                text = text + " ahoj ";
-                area_vloz_komentar.value = text;
-                this.submit();
-            }
+
+    let regFormularUsername = document.getElementById("usernamepriregistracii");
+    if(regFormularUsername != null) {
+        regFormularUsername.oninput = (event) => {
+            skontrolujCiNieJeTakyUzivatel(event.target.value);
         }
     }
-*/
+
+
 
 }
-    /*
-    area_vloz_komentar = document.getElementById("area_vloz_komentar");
-    if(area_vloz_komentar != null) {
-        area_vloz_komentar.onsubmit = function(e) {
-            e.preventDefault();
-            text = area_vloz_komentar.value;
-            text = text + " ahoj ";
-            area_vloz_komentar.value = text;
-            this.submit();
-        }
 
-}*/
+function skontrolujCiNieJeTakyUzivatel(username) {
+    let divExistujePouzivatel = document.getElementById("varovanieExistujePouzivatel");
+    if(username.length > 3) {
+        fetch("?c=prihlasenie&a=existujeUsername", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: "username="+username
+        }).then(response => response.json())
+            .then(response => {
 
 
-/*
-function pozastavMazanie(referencia) {
-        referencia.onsubmit = function(e) {
-        e.preventDefault();
-        if(confirm("Naozaj chceš vymazať tento komentár??")) {
+                if(response == "ano") {
+                    let varovanie = '</div> <div class="alert alert-danger" role="alert">'
+                    varovanie+= 'Zadané užívateľské meno už existuje, vyberte si prosím iné '
+                    varovanie += '</div>';
+                    divExistujePouzivatel.innerHTML = varovanie;
+                } else {
+                    divExistujePouzivatel.innerHTML = "";
+                }
 
-        }
+            })
+    } else {
+        divExistujePouzivatel.innerHTML = "";
     }
-    this.submit();
 }
 
-*/

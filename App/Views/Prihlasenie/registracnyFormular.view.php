@@ -10,10 +10,17 @@
 
 <form class="mt-4 mb-5" method="post" enctype="multipart/form-data" action="?c=prihlasenie&a=registrujMa">
 
+
     <div class="form-group">
         <label>Používateľské meno:</label>
-        <input class="form-control" name="username" required>
+        <div id="varovanieExistujePouzivatel">
+        </div>
+
+        <input class="form-control" name="username" id="usernamepriregistracii" required>
     </div>
+
+
+
 
     <div class="form-group">
         <label>Meno:</label>

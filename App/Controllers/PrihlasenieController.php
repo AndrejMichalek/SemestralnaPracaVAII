@@ -82,4 +82,16 @@ class PrihlasenieController extends AControllerRedirect
         }
 
     }
+
+    public function existujeUsername() {
+        $username = $this->request()->getValue("username");
+
+        $pouzivatelia  = Pouzivatel::getAll("username = ?", [$username]);
+        if(count($pouzivatelia) != 0) {
+            return $this->json("ano");
+        } else {
+            return $this->json("nie");
+        }
+
+    }
 }
