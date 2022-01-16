@@ -2,6 +2,18 @@
     <h2 class="display-2">Návody</h2>
 </div>
 
+<?php if(\App\Prihlasenie::jePrihlaseny()) { ?>
+    <div class="container mt-2 mb-2 ">
+        <a class="btn btn-lg btn-info" href="?c=navody&a=vytvoritNavod" role="button">Vytvoriť návod</a>
+    </div>
+<?php } else { ?>
+
+    <div class="alert alert-info">
+        <strong>Pre pridanie nového príspevku sa musíte prihlásiť</strong>
+    </div>
+
+<?php } ?>
+
 <div class="container">
     <div class="btn-group">
         <div class="dropdown">

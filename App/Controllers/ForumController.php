@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Core\DB\Connection;
 use App\Core\Responses\Response;
 use App\Forum;
 use App\Models\Komentar;
@@ -17,17 +18,41 @@ class ForumController extends AControllerRedirect
      */
     public function index()
     {
-
-
-
-
         NavbarPrvky::setForum();
 
-        $prispevky = Prispevok::getAll();
+        $prispevkovNaStranu = 15;
+
+
+        $strana = $this->request()->getValue("strana");
+        $kategoria = $this->request()->getValue("kategoria");
+        $zostupne = $this->request()->getValue("zostupne");
+
+        if($strana == "") {
+            $strana = 1;
+        }
+        if($kategoria == "P" || $kategoria == "S" || $kategoria == "O") {
+            $prispevky = Prispevok::getAll("kategoria = ?", [$kategoria]);
+        } else {
+            $prispevky = Prispevok::getAll();
+        }
+
+
+        if($zostupne == "") {
+            $prispevky = array_reverse($prispevky);
+        }
+
+        $maxStran = count($prispevky) / $prispevkovNaStranu;
+        $maxStran = ceil($maxStran);
+
+        $prispevky = array_slice($prispevky, ($strana-1)*$prispevkovNaStranu, $prispevkovNaStranu);
 
         return $this->html(
             [
-            "prispevky" => $prispevky
+            "prispevky" => $prispevky,
+            "strana" => $strana,
+            "maxStran" => $maxStran,
+                "kategoria" => $kategoria,
+                "zostupne" => $zostupne
             ]
         );
     }

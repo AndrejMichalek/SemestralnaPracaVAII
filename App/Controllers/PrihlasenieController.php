@@ -68,7 +68,8 @@ class PrihlasenieController extends AControllerRedirect
 
 
 
-        $problem = Prihlasenie::zaregistrujMa($username, $email, $meno, $priezvisko, $heslo, $hesloKontrola);
+
+        $problem = Prihlasenie::zaregistrujMa($username, $email, $meno, $priezvisko, $heslo, $hesloKontrola, "profilovka");
 
 
 

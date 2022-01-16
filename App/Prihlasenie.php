@@ -56,6 +56,7 @@ class Prihlasenie
         $priezvisko,
         $heslo,
         $hesloKontrola,
+        $profilovkaSubor
     ) : string {
         if($heslo == "" || $email == "" || $username == "" || $meno == "" || $priezvisko == "") {
             $problem = "Vyplnte prosím všetky polia";
@@ -83,6 +84,18 @@ class Prihlasenie
         $pridajTohto->setPriezvisko($priezvisko);
         $pridajTohto->setMail($email);
         $pridajTohto->setHeslo($heslo);
+
+        if($_FILES[$profilovkaSubor]['error'] == UPLOAD_ERR_OK) {
+            if($_FILES[$profilovkaSubor]['name'] != "") {
+                $nazovObrazka = $meno.$_FILES[$profilovkaSubor]['name'];
+                if(strlen($nazovObrazka) > 255) {
+                    $nazovObrazka = substr($nazovObrazka, 0, 255);
+                }
+                $ulozSemCesta = "public/obrazky/profilovky/$nazovObrazka";
+                move_uploaded_file($_FILES[$profilovkaSubor]['tmp_name'], $ulozSemCesta);
+                $pridajTohto->setProfilovyObrazok($nazovObrazka);
+            }
+        }
 
         $pridajTohto->save();
 

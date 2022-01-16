@@ -8,7 +8,7 @@
 <?php } ?>
 
 
-<form class="mt-4 mb-5" method="post" action="?c=prihlasenie&a=registrujMa">
+<form class="mt-4 mb-5" method="post" enctype="multipart/form-data" action="?c=prihlasenie&a=registrujMa">
 
     <div class="form-group">
         <label>Používateľské meno:</label>
@@ -40,6 +40,10 @@
         <input type="password" name="hesloKontrola" class="form-control" required>
     </div>
 
+    <div class="form-group">
+        <label>Profilová fotka</label>
+        <input type="file" name="profilovka" class="form-control" >
+    </div>
 
 
     <div class="text-center">

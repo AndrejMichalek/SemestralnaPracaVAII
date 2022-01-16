@@ -5,12 +5,15 @@ namespace App\Models;
 class Pouzivatel extends \App\Core\Model
 {
 
+    public $profilovyObrazok;
+
     public function __construct(
         public string $username ="",
         public string $mail = "",
         public string $heslo = "",
         public string $meno = "",
-        public string $priezvisko = ""
+        public string $priezvisko = "",
+
     )
     {
     }
@@ -98,7 +101,7 @@ class Pouzivatel extends \App\Core\Model
 
     static public function setDbColumns()
     {
-        return ['username', 'mail', 'heslo', 'meno', 'priezvisko'];
+        return ['username', 'mail', 'heslo', 'meno', 'priezvisko', 'profilovyObrazok'];
     }
 
     static public function setTableName()
@@ -106,7 +109,26 @@ class Pouzivatel extends \App\Core\Model
         return "pouzivatel";
     }
 
+    /**
+     * @return string
+     */
+    public function getProfilovyObrazok(): string
+    {
+        if($this->profilovyObrazok == "") {
+            return "public/obrazky/profilovka.jpg";
+        } else {
+            return "public/obrazky/profilovky/".$this->profilovyObrazok;
+        }
 
+    }
+
+    /**
+     * @param string $profilovyObrazok
+     */
+    public function setProfilovyObrazok(string $profilovyObrazok): void
+    {
+        $this->profilovyObrazok = $profilovyObrazok;
+    }
 
 
 }

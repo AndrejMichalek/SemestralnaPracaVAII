@@ -44,4 +44,14 @@ class NavodyController extends AControllerRedirect
         $this->redirect("navody");
 
     }
+
+    public function vytvoritNavod() {
+
+
+
+        return $this->html(
+
+        );
+    }
+
 }

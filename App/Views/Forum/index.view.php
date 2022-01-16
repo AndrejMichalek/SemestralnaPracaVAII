@@ -20,10 +20,10 @@
                 Kategória
             </button>
             <ul class="dropdown-menu">
-                <li><a class="dropdown-item active" href="#">Všetko</a></li>
-                <li><a class="dropdown-item" href="#">Smartphony</a></li>
-                <li><a class="dropdown-item" href="#">Počítače</a></li>
-                <li><a class="dropdown-item" href="#">Ostatné</a></li>
+                <li><a class="dropdown-item <?php if($data["kategoria"]=="") { ?>active<?php }?>" href="?c=forum&strana=1&zostupne=<?=$data['zostupne']?>">Všetko</a></li>
+                <li><a class="dropdown-item <?php if($data["kategoria"]=="S") { ?>active<?php }?>" href="?c=forum&strana=1&kategoria=S&zostupne=<?=$data['zostupne']?>">Smartphony</a></li>
+                <li><a class="dropdown-item <?php if($data["kategoria"]=="P") { ?>active<?php }?>" href="?c=forum&strana=1&kategoria=P&zostupne=<?=$data['zostupne']?>">Počítače</a></li>
+                <li><a class="dropdown-item <?php if($data["kategoria"]=="O") { ?>active<?php }?>" href="?c=forum&strana=1&kategoria=O&zostupne=<?=$data['zostupne']?>">Ostatné</a></li>
             </ul>
         </div>
         <div class="dropdown">
@@ -31,8 +31,8 @@
                 Zoradiť podľa
             </button>
             <ul class="dropdown-menu">
-                <li><a class="dropdown-item active" href="#">Od najnovšieho príspevku</a></li>
-                <li><a class="dropdown-item" href="#">Od najstaršieho príspevku</a></li>
+                <li><a class="dropdown-item <?php if($data["zostupne"]=="") { ?>active<?php }?>" href="?c=forum&strana=1&kategoria=<?=$data["kategoria"]."&zostupne="?>">Od najnovšieho príspevku</a></li>
+                <li><a class="dropdown-item <?php if($data["zostupne"]!="") { ?>active<?php }?>" href="?c=forum&strana=1&kategoria=<?=$data["kategoria"]."&zostupne=1"?>">Od najstaršieho príspevku</a></li>
             </ul>
         </div>
     </div>
@@ -59,10 +59,18 @@
 
 <div class="container">
     <ul class="pagination justify-content-end">
-        <li class="page-item disabled"><a class="page-link" href="#">Predchádzajúca</a></li>
-        <li class="page-item active"><a class="page-link" href="#">1</a></li>
-        <li class="page-item"><a class="page-link" href="#">2</a></li>
-        <li class="page-item"><a class="page-link" href="#">3</a></li>
-        <li class="page-item"><a class="page-link" href="#">Ďalšia</a></li>
+        <li class="page-item
+        <?php if($data["strana"]==1) {?>
+        disabled
+        <?php } ?>
+        "><a class="page-link" href="?c=forum&strana=<?=($data["strana"]-1)."&kategoria=".$data["kategoria"]?>">Predchádzajúca</a></li>
+
+        <li class="page-item active"><a class="page-link" href="#"><?=$data["strana"]?></a></li>
+
+        <li class="page-item
+        <?php if($data["strana"] == $data["maxStran"]) { ?>
+        disabled
+        <?php } ?>
+        "><a class="page-link" href="?c=forum&strana=<?=($data["strana"]+1)."&kategoria=".$data["kategoria"]?>">Ďalšia</a></li>
     </ul>
 </div>
