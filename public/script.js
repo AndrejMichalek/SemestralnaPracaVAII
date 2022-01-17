@@ -75,6 +75,19 @@ window.onload = function() {
     }
 
 
+
+    let editprofil = document.getElementsByClassName("editprofil");
+    if(editprofil.length != null) {
+        for(i = 0; i < editprofil.length; i++) {
+            editprofil[i].oninput = (e) => {
+                let divkoHlaska = document.getElementById("hlaskaeditaciaprofilu");
+                divkoHlaska.innerHTML = "";
+            }
+        }
+    }
+
+
+
 }
 
 function skontrolujCiNieJeTakyUzivatel(username) {
@@ -122,6 +135,47 @@ function zrusUpravovanieKroku(krokID){
 
     divko_normal.style.display = "block";
     divko_uprav.style.display = "none";
+
+
+}
+
+
+function editujProfil() {
+    let menoBox = document.getElementById("menoedit");
+    let priezviskoBox = document.getElementById("priezviskoedit");
+    let emailBox = document.getElementById("emailedit");
+
+
+    let povodneHesloBox = document.getElementById("povodnehesloedit");
+    let hesloBox = document.getElementById("hesloedit");
+    let kontrolaHeslaBox = document.getElementById("kontrolaheslaedit");
+
+    let divkoHlaska = document.getElementById("hlaskaeditaciaprofilu");
+
+    fetch("localhost/cvPosledne/?c=prihlasenie&a=zmenUdaje", {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: "meno="+menoBox.value + "&priezvisko=" + priezviskoBox.value + "&email=" + emailBox.value +
+            "&povodneheslo=" + povodneHesloBox.value + "&heslo=" + hesloBox.value +
+                "&kontrolaHeslaBox=" + kontrolaHeslaBox.value
+
+
+    }).then(response => response.json())
+        .then(response => {
+            let divko = document.createElement("div");
+            divko.className = "alert alert-primary"
+            divko.setAttribute('role','alert')
+            divko.innerHTML = response.toString();
+            divkoHlaska.innerHTML = "";
+            divkoHlaska.appendChild(divko);
+
+            hesloBox.value = "";
+            kontrolaHeslaBox.value = "";
+            povodneHesloBox.value = "";
+
+        })
 
 
 }

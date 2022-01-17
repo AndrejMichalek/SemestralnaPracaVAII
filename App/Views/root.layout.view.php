@@ -49,6 +49,11 @@
                         <a class="nav-link <?php echo \App\NavbarPrvky::$navRegistracia ?>" href="?c=prihlasenie&a=registracnyFormular">Registrácia</a>
                 </li>
                 <?php } else { ?>
+
+                <li class="nav-item">
+                    <a class="nav-link <?php echo \App\NavbarPrvky::$editaciaProfilu ?>" href="?c=prihlasenie&a=editujProfil">Editácia profilu</a>
+                </li>
+
                 <li class="nav-item">
                     <a class="nav-link" href="?c=prihlasenie&a=odhlasMa">Odhlásiť sa</a>
                 </li>

@@ -9,6 +9,7 @@ class NavbarPrvky
     static $navNavody = "";
     static $navPrihlasenie = "";
     static $navRegistracia = "";
+    static $editaciaProfilu = "";
 
     static function setDomov() {
         self::vynuluj();
@@ -34,6 +35,10 @@ class NavbarPrvky
         self::$navRegistracia= "active";
     }
 
+    static function setEditaciaProfilu() {
+        self::vynuluj();;
+        self::$editaciaProfilu = "active";
+    }
 
     static function vynuluj() {
         self::$navDomov = "";
@@ -41,6 +46,7 @@ class NavbarPrvky
         self::$navNavody = "";
         self::$navPrihlasenie = "";
         self::$navRegistracia = "";
+        self::$editaciaProfilu = "";
     }
 
 

@@ -102,5 +102,9 @@ class Prihlasenie
         return "";
     }
 
+    public static function overHeslo($heslo, $hesloDatabaza) {
+        return password_verify($heslo, $hesloDatabaza);
+    }
+
 
 }
