@@ -141,6 +141,8 @@ class NavodyController extends AControllerRedirect
         if($nazov == "") {
             $this->redirect("navody", "vytvoritNavod", ["navodid"=>$navodid, "chyba" => "Názov nemôže byť prázdny"]);
             return;
+        } else if(strlen($nazov) > 255) {
+            $this->redirect("navody", "vytvoritNavod", ["navodid"=>$navodid, "chyba" => "Názov musí mať max 255 znakov"]);
         }
         $navody = Navod::getAll("id = ?", [$navodid]);
         if(count($navody) == 1) {

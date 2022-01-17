@@ -3,6 +3,8 @@ $navodid = $data["navodid"];
 $nazovnavodu = $data['nazovnavodu'];
 $navodulozeny = $data['navodulozeny'];
 
+$chyba = $data['chyba'];
+
 $krokynavodu = $data['krokynavodu'];
 $chybaNeprialSa = $data['chybaNeprialSa'];
 
@@ -36,6 +38,12 @@ if($krokynavodu != "") {
     <div class="alert alert-danger" role="alert">
         Nedošlo k úprave! <br> <?=$chybaNeupravilSa?>
     </div>
+    <?php } ?>
+
+    <?php if($chyba != "") { ?>
+        <div class="alert alert-danger" role="alert">
+            <?=$chyba?>
+        </div>
     <?php } ?>
 
     <h4 class="mb-3 mt-3">Nadpis návodu:</h4>
