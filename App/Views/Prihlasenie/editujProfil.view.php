@@ -40,11 +40,6 @@ $email = $data["email"];
 
 
 
-    <div class="form-group">
-        <label>Profilová fotka</label>
-        <input type="file" name="profilovka" class="form-control" >
-    </div>
-
 
     <div class="text-center">
         <button onclick="editujProfil()" class="btn btn-primary mt-3 text-center" >Zmeniť</button>

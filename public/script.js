@@ -152,6 +152,9 @@ function editujProfil() {
 
     let divkoHlaska = document.getElementById("hlaskaeditaciaprofilu");
 
+
+
+
     fetch("localhost/cvPosledne/?c=prihlasenie&a=zmenUdaje", {
         method: 'POST',
         headers: {
