@@ -32,6 +32,20 @@ window.onload = function() {
         }
     }
 
+    let zmazKrok = document.getElementsByClassName("zmazKrok");
+    if(zmazKrok.length != null) {
+        for(i = 0; i < zmazKrok.length; i++) {
+            zmazKrok[i].onsubmit = function(e) {
+
+                e.preventDefault();
+                if (confirm("Naozaj chceš vymazať tento krok návodu??")) {
+                    this.submit();
+                }
+            }
+        }
+    }
+
+
     let novy_riadok_elementy = document.getElementsByClassName("novy_riadok");
     if(novy_riadok_elementy != null) {
         for(i = 0; i< novy_riadok_elementy.length; i++) {
@@ -49,6 +63,16 @@ window.onload = function() {
         }
     }
 
+
+    let nazovnavodu = document.getElementById("nazovnavodu");
+    if(nazovnavodu != null) {
+        nazovnavodu.oninput = (event) => {
+            let divkoHlaska = document.getElementById("navodulozeny");
+            if(divkoHlaska != null) {
+                divkoHlaska.innerHTML ="";
+            }
+        }
+    }
 
 
 }
@@ -81,3 +105,99 @@ function skontrolujCiNieJeTakyUzivatel(username) {
     }
 }
 
+
+function upravKrok(krokID){
+    let divko_normal = document.getElementById("normal," + krokID);
+    let divko_uprav = document.getElementById("uprava,"+ krokID);
+
+    divko_normal.style.display = "none";
+    divko_uprav.style.display = "block";
+
+
+}
+
+function zrusUpravovanieKroku(krokID){
+    let divko_normal = document.getElementById("normal," + krokID);
+    let divko_uprav = document.getElementById("uprava,"+ krokID);
+
+    divko_normal.style.display = "block";
+    divko_uprav.style.display = "none";
+
+
+}
+
+
+/**
+function vygenerujKroky() {
+    let divko = document.getElementById("krokyNavodu");
+
+
+    fetch('?c=navody&a=dajKrokyNavodu&navodid=1')
+        .then(response => response.json())
+        .then(data => {
+            let html = "";
+            for(let krok of data) {
+                html += '<div className="container mb-3">';
+                html+=    '<div className="row">'
+                html+=        '<div className="card col-sm-8">'
+                html+=            '<img className="card-img-top mt-2" src="public/obrazky/navody/' + krok.obrazok + '"'
+                html+=                 'alt="obrazok kroku">'
+                html+=                    '<div className="card-body ">'
+                html+=                    '</div>'
+                html+=           '</div>'
+                html+=            '<div className="card col-sm-4">'
+                html+=
+                    html+=    '<div className="card-body">'
+                html+=                    '<h3 className="card-title">' + krok.nazov + '</h3>'
+                html+=
+                    html+=     '<p className="obsahotazky">'
+                html+=                         krok.obsah
+                html+=                    '</p>'
+
+                        html+=        ' </div>'
+                html+=            '</div>'
+                html+=         '</div>'
+                html+=    '</div>'
+
+
+            }
+            divko.innerHTML=html;
+            }
+        )
+
+
+}
+
+
+
+
+
+
+
+
+class NavodEditor {
+    navodID;
+    divDoKtorehoToDat;
+    krokyNavodu;
+
+
+    constructor(navodID) {
+        this.navodID = navodID;
+
+        this.divDoKtorehoToDat = document.getElementById("krokyNavodu");
+        this.divDoKtorehoToDat.innerHTML = navodID;
+    }
+
+    vykresliKrokyNavodu() {
+
+
+    }
+
+    vypisA() {
+        this.divDoKtorehoToDat.innerHTML = 5;
+    }
+
+
+
+
+}**/

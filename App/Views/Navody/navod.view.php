@@ -11,10 +11,17 @@ $krokyNavodu = $data["krokyNavodu"];
             <h2 class="card-title nadpisNavodText"><?= $navod->getNazov()?></h2>
             <p class="nadpisNavodText">Aktualizované: <?= $navod->getDatumUpravy()?></p>
 
-
+            <?php if($navod->getUsername() == \App\Prihlasenie::dajUsername()) { ?>
+                <form class="mt-2" method="post" action="?c=navody&a=vytvoritNavod&navodid=<?=$navod->getId()?>&nadpisnavodu=<?=$navod->getNazov()?>">
+                    <button type="submit" class="btn btn-primary mt-3 text-center upravnavodbtn" >Upraviť</button>
+                </form>
+            <?php } ?>
         </div>
+
     </div>
 </div>
+
+
 
 
 <?php foreach($krokyNavodu as $krok) {?>
@@ -33,7 +40,7 @@ $krokyNavodu = $data["krokyNavodu"];
                 <h3 class="card-title"><?= $krok->getNazov()?></h3>
 
                 <p class="obsahotazky">
-                    <?= $krok->getObsah()?>
+                    <?= nl2br($krok->getObsah())?>
                 </p>
 
 

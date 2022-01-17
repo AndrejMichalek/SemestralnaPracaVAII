@@ -56,10 +56,12 @@
 
 
             </ul>
+            <?php if(false) { ?>
             <form class="d-flex">
                 <input class="form-control me-2" type="search" placeholder="Vyhľadať" aria-label="Search">
                 <button class="btn btn-outline-primary" type="submit">Hľadať</button>
             </form>
+            <?php } ?>
         </div>
     </div>
 </nav>

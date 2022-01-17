@@ -54,3 +54,18 @@ body {
 .nadpisNavodText {
     color:white;
 }
+
+.btn-info {
+    color: white;
+    background-color: darkblue;
+}
+
+.upravnavodbtn {
+    color:darkblue;
+    background-color: white;
+}
+/*
+.kroknavoduimg {
+    max-width: 1000px;
+    object-fit: contain;
+}*/
