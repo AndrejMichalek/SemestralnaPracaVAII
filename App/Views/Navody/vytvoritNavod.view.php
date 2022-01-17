@@ -61,7 +61,7 @@ if($krokynavodu != "") {
             </div>
     <?php } ?>
 
-    <h4 class="mb-3 mt-3">Vyberte kategóriu, do ktorej spadá Vaša otázka</h4>
+    <h4 class="mb-3 mt-3">Vyberte kategóriu, do ktorej spadá Váš návod</h4>
     <div class="form-check">
         <input type="radio" class="form-check-input" name="kategoria" value="S" <?=$smartphony?>>Smartphony
         <label class="form-check-label" for="radio1"></label>
@@ -77,7 +77,7 @@ if($krokynavodu != "") {
 
 
     <div class="text-center">
-        <button type="submit" class="btn btn-primary mt-3 text-center btn-lg" >Uložiť</button>
+        <button type="submit" class="btn btn-primary mt-3 text-center btn-lg w-100" >Uložiť</button>
     </div>
 </form>
 
