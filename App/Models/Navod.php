@@ -10,7 +10,7 @@ class Navod extends \App\Core\Model
     public $username;
     public $datumUpravy;
     public $nazov;
-
+    public $kategoria;
 
 
 
@@ -23,7 +23,7 @@ class Navod extends \App\Core\Model
 
     static public function setDbColumns()
     {
-        return ["id", "username", "datumUpravy", "nazov"];
+        return ["id", "username", "datumUpravy", "nazov", "kategoria"];
     }
 
     static public function setTableName()
@@ -93,5 +93,21 @@ class Navod extends \App\Core\Model
     public function setNazov($nazov): void
     {
         $this->nazov = $nazov;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getKategoria()
+    {
+        return $this->kategoria;
+    }
+
+    /**
+     * @param mixed $kategoria
+     */
+    public function setKategoria($kategoria): void
+    {
+        $this->kategoria = $kategoria;
     }
 }

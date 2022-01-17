@@ -18,13 +18,42 @@ class NavodyController extends AControllerRedirect
     public function index()
     {
         NavbarPrvky::setNavody();
-        $navody = Navod::getAll();
+
+        $navodovNaStranu = 15;
+
+        $strana = $this->request()->getValue("strana");
+        $kategoria = $this->request()->getValue("kategoria");
+        $zostupne = $this->request()->getValue("zostupne");
+
+        if($strana == "") {
+            $strana = 1;
+        }
+
+        if($kategoria == "P" || $kategoria == "S" || $kategoria == "O") {
+            $navody = Navod::getAll("kategoria = ?", [$kategoria]);
+        } else {
+            $navody = Navod::getAll();
+        }
+
+        if($zostupne == "") {
+            $navody = array_reverse($navody);
+        }
+
+
+        $maxStran = count($navody) / $navodovNaStranu;
+        $maxStran = ceil($maxStran);
+
+        $navody = array_slice($navody, ($strana-1)*$navodovNaStranu, $navodovNaStranu);
 
 
 
         return $this->html(
             [
-                "navody" => $navody
+                "navody" => $navody,
+                "strana" =>$strana,
+                "maxStran" => $maxStran,
+                "kategoria" => $kategoria,
+                "zostupne" => $zostupne
             ]
         );
     }
@@ -52,12 +81,14 @@ class NavodyController extends AControllerRedirect
     public function vytvoritNavod() {
         NavbarPrvky::setNavody();
 
+        $typ = "";
 
         $navodid = $this->request()->getValue("navodid");
         $nazovNavodu = $this->request()->getValue("nadpisnavodu");
         if($navodid != "") {
             $navod = Navod::getAll("id = ?", [$navodid]);
             $nazovNavodu = $navod[0]->getNazov();
+            $typ = $navod[0]->getKategoria();
         }
 
         $chyba = $this->request()->getValue("chyba");
@@ -88,7 +119,8 @@ class NavodyController extends AControllerRedirect
                 "krokynavodu" => $krokynavodu,
                 "chybaNeprialSa" => $chybaNeprialSa,
 
-                "chybaneupravilsa" => $chybaNepupraviSa
+                "chybaneupravilsa" => $chybaNepupraviSa,
+                "typ" => $typ
             ]
         );
     }
@@ -101,8 +133,14 @@ class NavodyController extends AControllerRedirect
         $navodid = $this->request()->getValue("navodid");
         $nazov = $this->request()->getValue("nazov");
 
+        $kategoria = $this->request()->getValue("kategoria");
+        if($kategoria != "S" && $kategoria != "P" && $kategoria != "O") {
+            $kategoria = "O";
+        }
+
         if($nazov == "") {
             $this->redirect("navody", "vytvoritNavod", ["navodid"=>$navodid, "chyba" => "Názov nemôže byť prázdny"]);
+            return;
         }
         $navody = Navod::getAll("id = ?", [$navodid]);
         if(count($navody) == 1) {
@@ -112,7 +150,9 @@ class NavodyController extends AControllerRedirect
                 $navody[0]->setNazov($nazov);
                 $datum = date('Y-m-d H:i:s');
                 $navody[0]->setDatumUpravy($datum);
+                $navody[0]->setKategoria($kategoria);
                 $navody[0]->save();
+
                 $this->redirect("navody", "vytvoritNavod", ["navodid"=>$navodid, "nadpisnavodu" => $nazov]);
             }
         } else {
@@ -123,6 +163,7 @@ class NavodyController extends AControllerRedirect
 
             $navod->setDatumUpravy($datum);
             $navod->setNazov($nazov);
+            $navod->setKategoria($kategoria);
             $navod->save();
 
             $navody = Navod::getAll("nazov = ? AND username = ?", [$nazov, Prihlasenie::dajUsername()]);
@@ -300,7 +341,7 @@ class NavodyController extends AControllerRedirect
             return;
         } else {
             $aktualneCislo = $krok[0]->getPoradoveCislo();
-            $ostatneKroky[$aktualneCislo-1]->setPoradoveCislo($aktualneCislo+1);
+            $ostatneKroky[$aktualneCislo-1]->setPoradoveCislo($aktualneCislo);
             $ostatneKroky[$aktualneCislo-1]->save();
             $krok[0]->setPoradoveCislo($aktualneCislo-1);
             $krok[0]->save();

@@ -38,8 +38,7 @@ class ForumController extends AControllerRedirect
 
 
         if($zostupne == "") {
-            $prispevky = Prispevok::getAll("id <> ? order by id desc", [0]);
-            //$prispevky = array_reverse($prispevky);
+            $prispevky = array_reverse($prispevky);
         }
 
         $maxStran = count($prispevky) / $prispevkovNaStranu;

@@ -7,6 +7,27 @@ $krokynavodu = $data['krokynavodu'];
 $chybaNeprialSa = $data['chybaNeprialSa'];
 
 $chybaNeupravilSa = $data['chybaneupravilsa'];
+
+$typ = $data['typ'];
+
+$smartphony = "";
+$pocitace = "";
+$ostatne = "";
+
+
+if($krokynavodu != "") {
+
+    if($typ == "S") {
+        $smartphony = "checked";
+    } else if ($typ == "P") {
+        $pocitace = "checked";
+    } else if($typ == "O") {
+        $ostatne = "checked";
+    }
+} else {
+    $smartphony = "checked";
+}
+
 ?>
 
 
@@ -26,11 +47,25 @@ $chybaNeupravilSa = $data['chybaneupravilsa'];
 
     <?php if($navodulozeny != "") { ?>
             <div id="navodulozeny">
-    <div class="alert alert-success mt-2 mb-2" role="alert">
-        Nadpis návodu je uložený
-    </div>
+                <div class="alert alert-success mt-2 mb-2" role="alert">
+                    Nadpis návodu je uložený
+                </div>
             </div>
     <?php } ?>
+
+    <h4 class="mb-3 mt-3">Vyberte kategóriu, do ktorej spadá Vaša otázka</h4>
+    <div class="form-check">
+        <input type="radio" class="form-check-input" name="kategoria" value="S" <?=$smartphony?>>Smartphony
+        <label class="form-check-label" for="radio1"></label>
+    </div>
+    <div class="form-check">
+        <input type="radio" class="form-check-input" name="kategoria" value="P" <?=$pocitace?>>Počítače
+        <label class="form-check-label" for="radio1"></label>
+    </div>
+    <div class="form-check">
+        <input type="radio" class="form-check-input" name="kategoria" value="O" <?=$ostatne?>>Ostatné
+        <label class="form-check-label" for="radio1"></label>
+    </div>
 
 
     <div class="text-center">
@@ -103,7 +138,7 @@ $chybaNeupravilSa = $data['chybaneupravilsa'];
                         <div class="card col-sm-4" >
                             <div class="card-body">
                                 <div class="form-group">
-                                    <label><h3>Nadpis kroku:</h3></label>
+                                    <h3>Nadpis kroku:</h3>
                                     <input class="form-control form-control-lg" name="nazov" value="<?= $krok->getNazov() ?>" required>
                                 </div>
                                 <div class="form-group">
@@ -150,7 +185,7 @@ $chybaNeupravilSa = $data['chybaneupravilsa'];
                     <div class="card col-sm-4" >
                         <div class="card-body">
                             <div class="form-group">
-                                <label><h3>Nadpis kroku:</h3></label>
+                                <h3>Nadpis kroku:</h3>
                                 <input class="form-control form-control-lg" name="nazov" required>
                             </div>
                             <div class="form-group">
