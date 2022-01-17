@@ -5,10 +5,17 @@ $navodulozeny = $data['navodulozeny'];
 
 $krokynavodu = $data['krokynavodu'];
 $chybaNeprialSa = $data['chybaNeprialSa'];
+
+$chybaNeupravilSa = $data['chybaneupravilsa'];
 ?>
 
 
 <form class="mt-5 mb-3" method="post" action="?c=navody&a=upravNavod&navodid=<?=$navodid?>">
+    <?php if($chybaNeupravilSa != "") { ?>
+    <div class="alert alert-danger" role="alert">
+        Nedošlo k úprave! <br> <?=$chybaNeupravilSa?>
+    </div>
+    <?php } ?>
 
     <h4 class="mb-3 mt-3">Nadpis návodu:</h4>
     <div class="form-group">
@@ -55,13 +62,25 @@ $chybaNeprialSa = $data['chybaNeprialSa'];
                             <p class="obsahotazky">
                                 <?= nl2br($krok->getObsah())?>
                             </p>
-                            <button onclick="upravKrok(<?=$krok->getId()?>)" class="mt-2 btn btn-secondary">Upraviť</button>
+                            <button onclick="upravKrok(<?=$krok->getId()?>)" class="mt-2 btn btn-secondary w-100">Upraviť</button>
 
                             <form class="zmazKrok mt-2" method="post" action="?c=navody&a=vymazKrok"  >
                                 <input type="hidden" name="idZmaz" value="<?=$krok->getId()?>">
-                                <button type="submit" class="btn btn-danger">Vymazať</button>
+                                <button type="submit" class="btn btn-danger w-100">Vymazať</button>
                             </form>
-
+                            <?php if($krok->getPoradoveCislo() != 0) { ?>
+                            <form class="mt-2" method="post" action="?c=navody&a=posunKrok"  >
+                                <input type="hidden" name="krokid" value="<?=$krok->getId()?>">
+                                <input type="hidden" name="vyssie" value="">
+                                <button type="submit" class="btn hordeolebtn w-100">Posunúť vyššie</button>
+                            </form>
+                            <?php } if($krok->getPoradoveCislo() != $krokynavodu[count($krokynavodu)-1]->getPoradoveCislo()) { ?>
+                            <form class="mt-2" method="post" action="?c=navody&a=posunKrok"  >
+                                <input type="hidden" name="krokid" value="<?=$krok->getId()?>">
+                                <input type="hidden" name="vyssie" value="ano">
+                                <button type="submit" class="btn hordeolebtn w-100">Posunúť nižšie</button>
+                            </form>
+                            <?php } ?>
 
                         </div>
                     </div>

@@ -64,6 +64,18 @@ body {
     color:darkblue;
     background-color: white;
 }
+
+.hordeolebtn {
+    background-color:lightskyblue;
+    color:darkblue;
+}
+
+.hordeolebtn:hover {
+    background-color:darkblue;
+    color:lightskyblue;
+}
+
+
 /*
 .kroknavoduimg {
     max-width: 1000px;

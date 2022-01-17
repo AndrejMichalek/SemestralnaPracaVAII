@@ -36,7 +36,7 @@ class NavodyController extends AControllerRedirect
         $navody = Navod::getAll("id = ?", [$navodID]);
         if(sizeof($navody) == 1) {
             $navod = $navody[0];
-            $krokyNavodu = KrokNavodu::getAll("navodID = ?", [$navodID]);
+            $krokyNavodu = KrokNavodu::getAll("navodID = ? order by poradoveCislo asc", [$navodID]);
 
             return $this->html(
                 [
@@ -69,7 +69,7 @@ class NavodyController extends AControllerRedirect
 
 
         if($navodid != "") {
-            $krokynavodu = KrokNavodu::getAll("navodID = ?", [$navodid]);
+            $krokynavodu = KrokNavodu::getAll("navodID = ? order by poradoveCislo asc", [$navodid]);
         }
         else {
             $krokynavodu = "";
@@ -86,7 +86,9 @@ class NavodyController extends AControllerRedirect
                 "navodulozeny" => $navodulozeny,
 
                 "krokynavodu" => $krokynavodu,
-                "chybaNeprialSa" => $chybaNeprialSa
+                "chybaNeprialSa" => $chybaNeprialSa,
+
+                "chybaneupravilsa" => $chybaNepupraviSa
             ]
         );
     }
@@ -151,6 +153,15 @@ class NavodyController extends AControllerRedirect
                     $krokNavodu->setNavodID($navodid);
 
 
+                    $ostatneKroky = KrokNavodu::getAll("navodID = ? ORDER BY poradoveCislo ASC", [$navodid]);
+                    if(count($ostatneKroky) == 0) {
+                        $krokNavodu->setPoradoveCislo(0);
+                    } else {
+                        $maxCislo = $ostatneKroky[count($ostatneKroky)-1]->getPoradoveCislo();
+                        $krokNavodu->setPoradoveCislo($maxCislo+1);
+                    }
+
+
                     $nazovObrazka = $navod[0]->getId().date('Y-m-d-H-i-s').$_FILES[$fotka]['name'];
                     if(strlen($nazovObrazka) > 255) {
                         $nazovObrazka = substr($nazovObrazka, 0, 255);
@@ -188,6 +199,13 @@ class NavodyController extends AControllerRedirect
             $this->redirect("navody");
             return;
         }
+        $ostatneKroky = KrokNavodu::getAll("navodID = ? order by poradoveCislo asc", [$idNavod]);
+        for($i = $krokNavodu[0]->getPoradoveCislo() + 1; $i < count($ostatneKroky); $i++) {
+            $ostatneKroky[$i]->setPoradoveCislo($i-1);
+            $ostatneKroky[$i]->save();
+        }
+
+
         unlink("public/obrazky/navody/".$krokNavodu[0]->getObrazok());
         $krokNavodu[0]->delete();
         $this->redirect("navody", "vytvoritNavod", ["navodid" => $idNavod]);
@@ -201,10 +219,7 @@ class NavodyController extends AControllerRedirect
         $nazov = $this->request()->getValue("nazov");
         $obsah = $this->request()->getValue("obsah");
 
-        if(strlen($obsah) < 3 || strlen($nazov) < 3) {
-            $this->redirect("navody", "vytvoritNavod", ["chybaneupravilsa" => "Krok návodu musí obsahovať zmysluplný názov aj obsah"]);
-            return;
-        }
+
 
         $krokNavodu = KrokNavodu::getAll("id = ?", [$krokID]);
         if(count($krokNavodu) != 1) {
@@ -217,6 +232,12 @@ class NavodyController extends AControllerRedirect
             $this->redirect("navody");
             return;
         }
+        if(strlen($obsah) < 3 || strlen($nazov) < 3) {
+            $this->redirect("navody", "vytvoritNavod", ["navodid" => $navod[0]->getId(),"chybaneupravilsa" => "Krok návodu musí obsahovať zmysluplný názov aj obsah"]);
+            return;
+        }
+
+
         $krokNavodu[0]->setObsah($obsah);
         $krokNavodu[0]->setNazov($nazov);
         if(isset($_FILES[$fotka]) &&
@@ -238,6 +259,55 @@ class NavodyController extends AControllerRedirect
 
     }
 
+
+    public function posunKrok() {
+        $krokID = $this->request()->getValue("krokid");
+        $vyssie = $this->request()->getValue("vyssie");
+
+        $krok = KrokNavodu::getAll("id = ?", [$krokID]);
+        if(count($krok) != 1) {
+            $this->redirect("navody");
+            return;
+        }
+        $navod = Navod::getAll("id = ?", [$krok[0]->getNavodID()]);
+        if($navod[0]->getUsername() != Prihlasenie::dajUsername()) {
+            $this->redirect("navody");
+            return;
+        }
+
+        $ostatneKroky = KrokNavodu::getAll("navodID = ? order by poradoveCislo asc", [$navod[0]->getId()]);
+        if(count($ostatneKroky) == 1) {
+            $this->redirect("navody", "vytvoritNavod", ["navodid" => $navod[0]->getId()]);
+            return;
+        }
+        if($krok[0]->getPoradoveCislo() == $ostatneKroky[count($ostatneKroky)-1]->getPoradoveCislo()
+        && $vyssie!="") {
+            $this->redirect("navody", "vytvoritNavod", ["navodid" => $navod[0]->getId()]);
+            return;
+        }
+        if($krok[0]->getPoradoveCislo() == $ostatneKroky[0]->getPoradoveCislo()
+        && $vyssie=="") {
+            $this->redirect("navody", "vytvoritNavod", ["navodid" => $navod[0]->getId()]);
+            return;
+        }
+        if($vyssie!="") {
+            $aktualneCislo = $krok[0]->getPoradoveCislo();
+            $ostatneKroky[$aktualneCislo+1]->setPoradoveCislo($aktualneCislo);
+            $ostatneKroky[$aktualneCislo+1]->save();
+            $krok[0]->setPoradoveCislo($aktualneCislo+1);
+            $krok[0]->save();
+            $this->redirect("navody", "vytvoritNavod", ["navodid" => $navod[0]->getId()]);
+            return;
+        } else {
+            $aktualneCislo = $krok[0]->getPoradoveCislo();
+            $ostatneKroky[$aktualneCislo-1]->setPoradoveCislo($aktualneCislo+1);
+            $ostatneKroky[$aktualneCislo-1]->save();
+            $krok[0]->setPoradoveCislo($aktualneCislo-1);
+            $krok[0]->save();
+            $this->redirect("navody", "vytvoritNavod", ["navodid" => $navod[0]->getId()]);
+            return;
+        }
+    }
 
 
 }
