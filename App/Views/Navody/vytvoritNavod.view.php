@@ -33,7 +33,7 @@ if($krokynavodu != "") {
 ?>
 
 
-<form class="mt-5 mb-3" method="post" action="?c=navody&a=upravNavod&navodid=<?=$navodid?>">
+<form class="mt-5 mb-3" method="post"  action="?c=navody&a=upravNavod&navodid=<?=$navodid?>">
     <?php if($chybaNeupravilSa != "") { ?>
     <div class="alert alert-danger" role="alert">
         Nedošlo k úprave! <br> <?=$chybaNeupravilSa?>
@@ -63,16 +63,16 @@ if($krokynavodu != "") {
 
     <h4 class="mb-3 mt-3">Vyberte kategóriu, do ktorej spadá Váš návod</h4>
     <div class="form-check">
-        <input type="radio" class="form-check-input" name="kategoria" value="S" <?=$smartphony?>>Smartphony
-        <label class="form-check-label" for="radio1"></label>
+        <input type="radio" class="form-check-input" name="kategoria" value="S" <?=$smartphony?>>
+        <label class="form-check-label" >Smartphony</label>
     </div>
     <div class="form-check">
-        <input type="radio" class="form-check-input" name="kategoria" value="P" <?=$pocitace?>>Počítače
-        <label class="form-check-label" for="radio1"></label>
+        <input type="radio" class="form-check-input" name="kategoria" value="P" <?=$pocitace?>>
+        <label class="form-check-label" >Počítače</label>
     </div>
     <div class="form-check">
-        <input type="radio" class="form-check-input" name="kategoria" value="O" <?=$ostatne?>>Ostatné
-        <label class="form-check-label" for="radio1"></label>
+        <input type="radio" class="form-check-input" name="kategoria" value="O" <?=$ostatne?>>
+        <label class="form-check-label" >Ostatné</label>
     </div>
 
 
